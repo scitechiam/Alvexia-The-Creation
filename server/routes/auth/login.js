@@ -1,7 +1,7 @@
 // Iniciar sesión
 const config = require("../../../config.js");
-const jwt = require('jsonwebtoken');
-const User = require('../../models/User');
+const jwt = require("jsonwebtoken");
+const User = require("../../database/models/User.js");
 
 const login = async (req, res) => {
     const { email, password } = req.body;
@@ -10,13 +10,13 @@ const login = async (req, res) => {
         const user = await User.findOne({ email });
 
         if (!user) {
-            return res.status(400).json({ error: 'USER_NOT_FOUND' });
+            return res.json({ status: "error" , error: "USER_NOT_FOUND" });
         }
 
         const isMatch = await user.matchPassword(password);
 
         if (!isMatch) {
-            return res.status(400).json({ error: 'WRONG_PASSWORD' });
+            return res.json({ status:"error" , error: "WRONG_PASSWORD" });
         }
 
         const payload = {
@@ -25,12 +25,12 @@ const login = async (req, res) => {
             }
         };
 
-        const token = jwt.sign(payload, config.SECRET_TOKEN , { expiresIn: '1d' });
+        const token = jwt.sign(payload, config.SECRET_TOKEN , { expiresIn: "1d" });
 
-        res.json({ token });
+        res.json({ status: "success" , token });
     } catch (err) {
         console.error(err.message);
-        res.status(500).send('INTERNAL_SERVER_ERROR');
+        res.send({status: "error" , error: "INTERNAL_SERVER_ERROR"});
     }
 };
 

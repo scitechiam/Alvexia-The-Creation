@@ -1,6 +1,6 @@
 const config = require("../../../config.js");
 const jwt = require('jsonwebtoken');
-const User = require('../../models/User.js');
+const User = require('../../database/models/User.js');
 
 // Registrar un nuevo usuario
 const register = async (req, res) => {
