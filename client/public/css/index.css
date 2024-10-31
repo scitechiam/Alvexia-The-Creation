@@ -1,0 +1,169 @@
+:root {
+  --xwindow: #373737;
+  --textColor: white;
+  --shadow: #676767;
+}
+html,body {
+  width: 100%;
+  height: 100%;
+}
+* {
+  margin: 0;
+  padding: 0;
+  color: var(--textColor);
+  font-family: "Cool Pixel";
+}
+
+#content {
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+}
+#content canvas {
+  position: absolute;
+}
+#xwindow {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+}
+#xwindow .content-dialog {
+  background: var(--xwindow);
+  /* background-image: url('/assets/grass_limit01.png');*/
+  box-shadow: inset 0 0px 10px 0px var(--shadow);
+
+  background-repeat: auto;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  padding: 10px;
+  border-radius: 10px;
+  margin: 5px;
+  width: 100%;
+
+}
+.content-dialog * {
+  margin-top: 3px;
+  margin-bottom: 3px;
+}
+.content-title {
+  position: relative;
+  font-size: 20px;
+  min-width: 250px;
+  /*padding-left: 30px !important;
+  padding-right: 30px !important;
+  padding-top: 10px;
+  padding-bottom: 10px;*/
+  margin: 0 !important;
+}
+.content-title #img1 {
+  position: absolute;
+  right: -10px;
+  top: -5px;
+  width: 50px;
+  height: 50px;
+}
+.content-title #img2 {
+  position: absolute;
+  left: -10px;
+  top: -5px;
+  width: 60px;
+  height: 60px;
+}
+.content-org {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 250px;
+}
+/*
+.content-org #content_login #content_register {
+  width: 100%;
+}*/
+.span-touch {
+  color: #1bf948;
+}
+.span-touch:active {
+  color: #0f6721;
+  background: #79f993;
+}
+.input-edit {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  margin: 5px;
+  position: relative;
+  border: 1px solid var(--shadow);
+  padding: 10px;
+  background: var(--bgBody);
+  border-radius: 10px;
+  outline: 0;
+  color: var(--textColor);
+  min-width: 150px;
+  max-width: 90vw;
+}
+.input-edit:not(:empty)[placeholder]::before {
+  color: var(--colorControl);
+  transform: translateY(-20px) translateX(-5px) scale(0.6);
+  transition: all 0.2s ease;
+}
+.input-edit:focus {
+ /* border-color: var(--colorControl);*/
+  border-width: 1px;
+  &[placeholder]::before {
+    /*color: var(--colorControl);*/
+    transform: translateY(-20px) translateX(-5px) scale(0.6);
+    transition: all 0.2s ease;
+    pointer-events: none;
+  }
+}
+.input-edit[placeholder]::before {
+  content: attr(placeholder);
+  color: var(--textHint);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  display: inline-block;
+  padding-left: 3px;
+  padding-right: 3px;
+  float: right;
+  background: var(--xwindow);
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 0;
+  padding-top: 0;
+  border-radius: 20px;
+}
+button {
+  background: var(--xwindow);
+  border: 0;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+
+  box-shadow: inset 0 0px 10px 0px var(--shadow);
+  border-radius: 10px;
+  font-family: "Cool Pixel";
+  font-size: 18px;
+}
+button:active {
+  background: var(--shadow);
+}
+@font-face {
+  font-family: 'Cool Pixel';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('coolpixel.ttf') format('truetype');
+}

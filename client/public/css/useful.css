@@ -1,0 +1,87 @@
+.input-password::before {
+  content: attr(placeholder);
+  color: var(--textHint);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  display: inline-block;
+  padding-left: 3px;
+  padding-right: 3px;
+  float: right;
+  background: var(--bgBody);
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 0;
+  padding-top: 0;
+  border-radius: 20px;
+}
+.input-password {
+  text-align: left;
+  display: flex;
+  /*flex-direction: column;*/
+  position: relative;
+  min-width: 200px;
+  max-width: 90vw;
+  margin: 5px;
+  border: 1px solid var(--shadow);
+  padding: 10px;
+  /* padding-bottom: 10px;*/
+  background: var(--bgBody);
+  border-radius: 10px;
+  outline: 0;
+  color: var(--textColor);
+  flex-wrap: wrap;
+}
+.input-password input {
+  font-size: var(--sizeInputEdit);
+  border: 0;
+  outline: 0;
+  max-width: 170px;
+  /*max-width: 90vw;*/
+  /*position: absolute;*/
+  flex-grow: 0;
+  flex-shrink: 1;
+  /*height: 100%;*/
+  /*padding-left: 10px;*/
+  color: var(--textColor);
+  margin: 0;
+  background: transparent;
+  /*max-width: 50%;*/
+  /*var(--bgBody);*/
+}
+.input-password.active[placeholder]:before {
+  color: var(--colorControl);
+  transform: translateY(-20px) translateX(-5px) scale(0.6);
+  transition: all 0.2s ease;
+}
+.input-password:focus-within {
+ /* border-color: var(--colorControl);*/
+  border-width: 1px;
+  &[placeholder]::before {
+    /*color: var(--colorControl);*/
+    transform: translateY(-20px) translateX(-5px) scale(0.6);
+    transition: all 0.2s ease;
+    pointer-events: none;
+  }
+}
+/*
+.input-password::before {
+  content: attr(placeholder);
+  color: var(--textHint);
+  transition: all 0.3s ease-in-out;
+  pointer-events: none;
+  position: absolute;
+  text-align: center;
+  display: inline-block;
+  padding-left: 3px;
+  padding-right: 3px;
+  float: right;
+  background: var(--bgBody);
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-bottom: 0;
+  padding-top: 0;
+  border-radius: 20px;
+  font-size: var(--sizeInputEdit);
+}*/
