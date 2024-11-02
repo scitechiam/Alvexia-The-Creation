@@ -9,24 +9,30 @@ const createCharacter = async (socket, io) => {
       const user = await User.findById(socket.user_id);
 
       if (!user) {
-        socket.emit("error", { message: "USER_NOT_FOUND" });
+        socket.emit("error", "USER_NOT_FOUND");
         return socket.disconnect();
       }
 
       if (!data.name || data.name.length < 4)
         return socket.emit(EVENT, "NAME_LENGTH_MIN");
-      if (data.name.length > 14)
-        return socket.emit(EVENT, "NAME_LENGTH_MAX");
+      if (data.name.length > 14) return socket.emit(EVENT, "NAME_LENGTH_MAX");
 
       const charName = await Character.find({ name: data.name });
-      if (charName.length > 0)
-        return socket.emit(EVENT, "NAME_EXISTS");
+      if (charName.length > 0) return socket.emit(EVENT, "NAME_EXISTS");
+
+      const totalChars = await Character.find({ user: user._id });
+
+      // Corrección: uso de length para verificar el total de personajes
+      if (totalChars.length >= 3 && user.vip === false)
+        return socket.emit(EVENT, "MAXIMUM_CHARACTERS");
+      if (totalChars.length >= 5) return socket.emit(EVENT, "CHARACTERS_LIMIT");
 
       // Crear un nuevo personaje para este usuario
       const newCharacter = new Character({
-        user: user._id, // Relaciona el personaje con el usuario
-        name: data.name, // Puedes recibir el nombre desde el cliente
-        skin: data.skin || "hero_1",
+        user: user._id,
+        name: data.name,
+        race: data.race,
+        skin: data.skin || `${data.race}_1`,
       });
 
       // Guardar el personaje en la base de datos
@@ -36,7 +42,7 @@ const createCharacter = async (socket, io) => {
       socket.emit(EVENT, savedCharacter);
     } catch (error) {
       console.error("Error al crear personaje:", error);
-      socket.emit("error", { message: "No se pudo crear el personaje" });
+      socket.emit(EVENT, "CANNOT_CREATE_CHARACTER");
     }
   });
 };

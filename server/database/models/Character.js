@@ -30,9 +30,22 @@ const characterSchema = new mongoose.Schema({
         type: Number, 
         default: 1 
     }, 
+    race: {
+        type: String,
+        enum: ["elf", "orc"],
+        required: true
+    },
     xp: { 
         type: Number, 
         default: 0 
+    },
+    zone: {
+        x: { type: Number, default: 0 },
+        y: { type: Number, default: 0 }
+    },
+    coords: {
+        x: { type: Number, default: 0 },
+        y: { type: Number, default: 0 }
     },
     createdAt: { 
         type: Date, 

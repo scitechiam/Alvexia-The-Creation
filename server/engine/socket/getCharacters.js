@@ -13,11 +13,11 @@ const getCharacters = async (socket, io) => {
         return socket.disconnect();
       }
 
-      const characters = await Character.find({user_id : user._id});
+      const characters = await Character.find({user : user._id});
 
       socket.emit(EVENT, characters);
     } catch (error) {
-      socket.emit("error", { message: "No se pudo crear el personaje" });
+      socket.emit("error", "CANNOT_GET_CHARACTERS" );
     }
   });
 };

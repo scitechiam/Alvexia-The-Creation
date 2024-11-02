@@ -19,7 +19,11 @@ const userSchema = new mongoose.Schema({
         required: true, 
         unique: true,
         lowercase: true, // Normaliza correos a minúsculas
-        match: [/^\S+@\S+\.\S+$/, 'Please use a valid email address'] // Validación básica de email
+        match: [/^\S+@\S+\.\S+$/, 'INVALID_EMAIL_FORMAT'] // Validación básica de email
+    },
+    vip: {
+        type: Boolean,
+        default: false
     },
     password: { type: String, required: true },
     accLevel: { 
