@@ -13,7 +13,7 @@ const getCharacters = async (socket, io) => {
         return socket.disconnect();
       }
 
-      const characters = await Character.find({user : user._id});
+      const characters = await Character.find({user : user._id}).populate("user");
 
       socket.emit(EVENT, characters);
     } catch (error) {

@@ -10,7 +10,8 @@ const characterSchema = new mongoose.Schema({
     user: { 
         type: mongoose.Schema.Types.ObjectId, 
         ref: 'User', // Referencia al modelo User
-        required: true 
+        required: true ,
+        index: true
     },
     uid: { 
         type: String, 
