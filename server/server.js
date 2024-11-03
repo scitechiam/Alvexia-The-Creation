@@ -10,6 +10,8 @@ const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
 app.use(express.json());
+const {loadMaps} = require("./engine/world/worldEngine.js");
+loadMaps();
 
 connectDB();
 
