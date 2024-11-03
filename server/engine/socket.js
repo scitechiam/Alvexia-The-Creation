@@ -1,7 +1,5 @@
-const createCharacter = require("./socket/createCharacter.js");
-const getCharacters = require("./socket/getCharacters.js");
+const charCreation = require("./socket/charCreation/charCreation.js");
 
 module.exports = (socket, io) => {
-  createCharacter(socket, io);
-  getCharacters(socket, io);
+  charCreation(socket, io);
 };
