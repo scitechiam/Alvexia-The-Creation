@@ -9,7 +9,7 @@ const getCharacters = async (socket, io) => {
       const user = await User.findById(socket.user_id);
 
       if (!user) {
-        socket.emit("error", { message: "USER_NOT_FOUND" });
+        socket.emit(EVENT,"USER_NOT_FOUND" );
         return socket.disconnect();
       }
 
@@ -17,7 +17,7 @@ const getCharacters = async (socket, io) => {
 
       socket.emit(EVENT, characters);
     } catch (error) {
-      socket.emit("error", "CANNOT_GET_CHARACTERS" );
+      socket.emit(EVENT, "CANNOT_GET_CHARACTERS" );
     }
   });
 };

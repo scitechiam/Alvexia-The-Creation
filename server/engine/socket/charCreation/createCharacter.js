@@ -9,7 +9,7 @@ const createCharacter = async (socket, io) => {
       const user = await User.findById(socket.user_id);
 
       if (!user) {
-        socket.emit("error", "USER_NOT_FOUND");
+        socket.emit(EVENT, "USER_NOT_FOUND");
         return socket.disconnect();
       }
 
