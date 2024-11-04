@@ -6,12 +6,15 @@
 html,body {
   width: 100%;
   height: 100%;
+  font-size: 16px;
+
 }
 * {
   margin: 0;
   padding: 0;
   color: var(--textColor);
-  font-family: "Cool Pixel";
+  font-family: "Cool Pixel", sans-serif;
+  user-select: none;
 }
 
 #content {
@@ -36,6 +39,9 @@ html,body {
   overflow: auto;
   flex-direction: column;
 }
+.activity {
+  display: none;
+}
 #xwindow .content-dialog {
   background: var(--xwindow);
   /* background-image: url('/assets/grass_limit01.png');*/
@@ -50,19 +56,48 @@ html,body {
   margin: 5px;
   width: 100%;
 
+  flex-wrap: wrap;
+  grap: 10px
+}
+.content-init-top {
+  position: absolute;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  justify-content: end;
+}
+.content-init-top * {
+  margin-right: 5px;;
+}
+.content-news {
+
+  background: rgba(43,43,43,0.411);
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  text-align: start;
+  padding: 5px;
+  border-radius: 5px;
 }
 .content-dialog * {
   margin-top: 3px;
   margin-bottom: 3px;
 }
+#content_init {
+  width: 100%;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+}
 .content-title {
   position: relative;
   font-size: 20px;
   min-width: 250px;
-  /*padding-left: 30px !important;
-  padding-right: 30px !important;
-  padding-top: 10px;
-  padding-bottom: 10px;*/
   margin: 0 !important;
 }
 .content-title #img1 {
@@ -85,10 +120,12 @@ html,body {
   align-items: center;
   max-width: 250px;
 }
-/*
-.content-org #content_login #content_register {
-  width: 100%;
-}*/
+h3 {
+  font-size: 18px;
+}
+a, span {
+  font-size: 14px;
+}
 .span-touch {
   color: #1bf948;
 }
@@ -117,10 +154,8 @@ html,body {
   transition: all 0.2s ease;
 }
 .input-edit:focus {
- /* border-color: var(--colorControl);*/
   border-width: 1px;
   &[placeholder]::before {
-    /*color: var(--colorControl);*/
     transform: translateY(-20px) translateX(-5px) scale(0.6);
     transition: all 0.2s ease;
     pointer-events: none;
@@ -144,6 +179,7 @@ html,body {
   padding-top: 0;
   border-radius: 20px;
 }
+
 button {
   background: var(--xwindow);
   border: 0;
@@ -160,10 +196,12 @@ button {
 button:active {
   background: var(--shadow);
 }
+button:disabled {
+  background: var(--shadow);
+}
 @font-face {
   font-family: 'Cool Pixel';
-  font-style: normal;
-  font-weight: 400;
-  font-display: swap;
+  /* font-style: normal;
+  font-display: swap;*/
   src: url('coolpixel.ttf') format('truetype');
 }

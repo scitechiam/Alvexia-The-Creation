@@ -56,7 +56,7 @@
   transition: all 0.2s ease;
 }
 .input-password:focus-within {
- /* border-color: var(--colorControl);*/
+  /* border-color: var(--colorControl);*/
   border-width: 1px;
   &[placeholder]::before {
     /*color: var(--colorControl);*/
@@ -85,3 +85,8 @@
   border-radius: 20px;
   font-size: var(--sizeInputEdit);
 }*/
+.toast-success {
+/*  position: absolute;
+  bottom: 50vw;*/
+  background: green;
+}

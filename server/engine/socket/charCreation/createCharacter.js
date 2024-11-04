@@ -1,5 +1,5 @@
-const User = require("../../database/models/User.js");
-const Character = require("../../database/models/Character.js");
+const User = require("../../../database/models/User.js");
+const Character = require("../../../database/models/Character.js");
 
 const EVENT = "createCharacter";
 

@@ -9,6 +9,11 @@
   <script src="js/useful.js"></script>
   <script src="js/logic.js"></script>
   <script src="js/client.js"></script>
+  <script src="js/activitys/home.js"></script>
+  <script src="js/activitys/login.js"></script>
+  <script src="js/activitys/register.js"></script>
+  <script src="js/activitys/password_reset.js"></script>
+  <script src="js/activitys/create_character.js"></script>
   <script src="engine/main.js"></script>
   <script src="engine/useful.js"></script>
   <script src="engine/modules/Texture.js"></script>
@@ -19,9 +24,18 @@
   <script src="engine/modules/Circle.js"></script>
   <script src="engine/modules/Collision.js"></script>
   <script src="engine/modules/Text.js"></script>
-  <title>ExoPlay</title>
+  <script src="plugins/socket.io.js"></script>
+  <script src="plugins/eruda.js"></script>
+  <title>Alvexia</title>
 </head>
 <body>
+  <script>
+    if (window.eruda) {
+      eruda.init({
+        theme: 'dark'
+      });
+    }
+  </script>
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="icon_show_password" viewBox="0 0 100 100">
       <circle cy="50" cx="50" r="49" fill='#434343' stroke="#ffffff" stroke-width="3" /> <path d="M20 50 Q50 10 80 50 50 90 20 50" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><circle cy="50" cx="50" r="10" fill="none" stroke="white" stroke-width="3" />
@@ -30,53 +44,75 @@
   <div id="content">
     <div id="xwindow" style="display:flex">
       <div class="content-org">
-        <div class="content-title content-dialog">
+
+        <div title="#login #register #password_reset" class="content-title content-dialog activity">
           <img id="img1" src="assets/pj_1.png"></img>
           <img id="img2" src="assets/flw_2.png"></img>
           <h1>Alvexia</h1>
         </div>
 
-        <div id="content_login" style="display: block" class="content-dialog">
+        <div title="#login" id="content_login" class="content-dialog activity">
           <h3>Iniciar</h3>
           <div id="email_login" class="input-edit" placeholder="Email" contenteditable="true"></div>
           <div id="password_login" class="input-edit" placeholder="Contraseña" contenteditable="true"></div>
           <span id="btn_password_reset" class="span-touch">¿No recuerdas la contraseña?</span>
+          <br>
           <button id="btn_start_login">Aceptar</button>
-          <br />
-        <a>¿No tienes cuenta? <span id="btn_go_regsiter" class="span-touch">Registrarse</span></a>
-      </div>
+          <br>
+          <a>¿No tienes cuenta? <span id="btn_go_regsiter" class="span-touch">Registrarse</span></a>
+        </div>
 
+        <div title="#register" id="content_register" class="content-dialog activity">
+          <h3>Registrarse</h3>
+          <div id="email_register" class="input-edit" placeholder="Email" contenteditable="true"></div>
+          <div id="password_register" class="input-edit" placeholder="Contraseña" contenteditable="true"></div>
+          <div id="password2_register" class="input-edit" placeholder="Repetir contraseña" contenteditable="true"></div>
+          <div style="display:none" id="input_content_password_login" class="input-password" placeholder="Contraseña">
+            <input id="input_password_login" type="password"><div id="btn_show_password_login" class="btn-password">
+              <svg><use xlink:href="#icon_show_password" /></svg>
+            </div>
+          </div>
+          <button id="btn_start_register">Aceptar</button>
+          <br>
+          <a>¿Ya tienes cuenta? <span id="btn_back_login" class="span-touch">Iniciar</span></a>
+        </div>
 
-      <div id="content_register" style="display:none" class="content-dialog">
-        <h3>Registrarse</h3>
-        <div id="name_register" class="input-edit" placeholder="Nombre" contenteditable="true"></div>
-        <div id="email_register" class="input-edit" placeholder="Email" contenteditable="true"></div>
-        <div id="password_register" class="input-edit" placeholder="Contraseña" contenteditable="true"></div>
-        <div id="password2_register" class="input-edit" placeholder="Repetir contraseña" contenteditable="true"></div>
-        <div id="input_content_password_login" class="input-password" placeholder="Contraseña">
-          <input id="input_password_login" type="password"><div id="btn_show_password_login" class="btn-password">
-            <svg><use xlink:href="#icon_show_password" /></svg>
+        <div title="#password_reset" id="content_password_reset" class="content-dialog activity">
+          <h3>Recuperar contraseña</h3>
+          <div id="email_password_reset" class="input-edit" placeholder="Email" contenteditable="true"></div>
+          <button>Enviar código</button>
+          <br>
+          <span id="btn_back_no_reset" class="span-touch">Regresar </span>
+        </div>
+
+        <div title="#home" id="content_init" class="content-dialog activity">
+          <button id="btn_init_play" style="width:100%;display:none;">Jugar</button>
+          <button id="btn_init_create_character" style="width:100%">Crear Personaje</button>
+          <div class="content-init-top">
+            <div>
+              <button>Redes Sociales</button>
+              <button>Ajustes </button>
+            </div>
+            <div id="content_news" class="content-news">
+              <h3>Noticias</h3>
+
+            </div>
           </div>
         </div>
-        <button>Aceptar</button>
-        <br />
-      <a>¿Ya tienes cuenta? <span id="btn_back_login" class="span-touch">Iniciar</span></a>
-    </div>
 
-    <div id="content_password_reset" class="content-dialog" style="display:none">
-      <h3>Recuperar contraseña</h3>
-      <div id="email_password_reset" class="input-edit" placeholder="Email" contenteditable="true"></div>
-      <button>Enviar código</button>
-      <br>
-      <span id="btn_back_no_reset" class="span-touch">Regresar </span>
-    </div>
+        <div title="#create_character" id="content_create_character" style="display:none" class="content-dialog activity">
+          <div id="name_character" class="input-edit" placeholder="Nombre" contenteditable="true"></div>
+          <img src="assets/pj_1.png">
+          <br>
+          <button id="btn_create_character" style="width:100%;">Crear</button>
+        </div>
 
-    <div id="toast" class="content-dialog" style="display:none">
-      Error
-    </div>
+       <!-- <div id="toast" class="content-dialog" style="display:none">
+          Error
+        </div>-->
 
+      </div>
+    </div>
   </div>
-</div>
-</div>
 </body>
 </html>

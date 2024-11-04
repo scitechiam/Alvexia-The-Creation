@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="css/index.css">
+  <script src="plugins/socket.io.js"></script>
+  <!-- <script src="plugins/eruda.js"></script>-->
+  <title>ExoPlay</title>
+</head>
+<body>
+  <script>
+    /*  if (window.eruda) {
+      eruda.init({
+        theme: 'dark'
+      });
+    }*/
+  </script>
+  <script>
+
+    window.onload = ()=> {
+      history.back();
+      console.log(window)
+      // Configuración del socket
+      const socket = io('http://localhost:3000', {
+        query: {
+          token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjcyNmFhMzY0MjQyMjcwYTE0ZDFiZDNhIn0sImlhdCI6MTczMDU4NzE5MCwiZXhwIjoxNzMwNTkwNzkwfQ.FMxsLw-1Yh9eKtNjy4xV_Rp882VW6opZ-lYwRWQCqmM"
+        }
+      });
+      socket.emit("createCharacter", {
+        name: "Heeero1",
+        race: "elf"
+      });
+      socket.emit("getCharacters");
+      socket.on("createCharacter", (data)=> {
+        console.log(JSON.stringify(data))
+      })
+      socket.on("getCharacters", (data)=> {
+        console.log(data)
+      })
+      socket.on('error', (e)=> {
+        console.log(e)
+      })
+    }
+
+  </script>
+</body>
+</html>
