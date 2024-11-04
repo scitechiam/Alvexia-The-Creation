@@ -44,7 +44,7 @@ const createMap = (name, x, y, size_x, size_y) => {
   fs.writeFileSync(`${mapsRoute}${mapKey}.json`, JSON.stringify(newMap, null, 2), "utf8");
   console.log(`New map segment ${mapKey} created and saved.`);
 
-  return { status: "success", message: "MAP_CREATED", map: newMap };
+  return { status: "success", message: newMap };
 };
 
 

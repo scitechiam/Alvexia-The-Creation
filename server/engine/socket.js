@@ -1,5 +1,5 @@
 const charCreation = require("./socket/charCreation/charCreation.js");
-const world = require("./world/world.js");
+const world = require("./socket/world/world.js");
 
 module.exports = (socket, io) => {
   charCreation(socket, io);

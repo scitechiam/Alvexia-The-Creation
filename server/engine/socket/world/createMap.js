@@ -1,7 +1,7 @@
-const { SERVER } = require("../../../config.js");
+const { SERVER } = require("../../../../config.js");
 const User = require(SERVER + "/database/models/User.js");
 const Character = require(SERVER + "/database/models/Character.js");
-const CreateMap = require("./worldEngine.js").createMap;
+const CreateMap = require("../../world/worldEngine.js").createMap;
 
 const EVENT = "createMap";
 
