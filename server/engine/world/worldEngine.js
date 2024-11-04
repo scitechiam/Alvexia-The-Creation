@@ -47,9 +47,19 @@ const createMap = (name, x, y, size_x, size_y) => {
   return { status: "success", message: newMap };
 };
 
+const getMap = (x , y) => {
+  const mapKey = `${x}_${y}`;
+  
+  if (!WORLD[mapKey]) {
+    return { status: "error", message: "MAP_DONT_EXISTS" };
+  }
+  return {status: "success" , message: WORLD[mapKey]};
+}
+
 
 
 module.exports = {
   createMap,
-  loadMaps
+  loadMaps,
+  getMap
 }
