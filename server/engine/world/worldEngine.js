@@ -59,7 +59,7 @@ const getMap = (x, y) => {
   if (!WORLD[mapKey]) {
     return { status: "error", message: "MAP_DONT_EXISTS" };
   }
-  return { status: "success", message: { world: WORLD[mapKey], pjs: PJS } };
+  return { status: "success", message: { world: WORLD[mapKey], pjs: PJS[mapKey] } };
 }
 
 const joinMap = async (zone, coords, socket, io) => {
@@ -85,7 +85,7 @@ const joinMap = async (zone, coords, socket, io) => {
   socket.emit("getMap" , map.message);
   socket.join(mapKey);
   
-  socket.to(mapKey).emit("newPj" , PJS[mapKey][socket.char_id]);
+  socket.to(mapKey).emit("newPj" , {[socket.char_id]: PJS[mapKey][socket.char_id]});
   
   return {status: "success" , message: "JOINED_MAP"};
 
