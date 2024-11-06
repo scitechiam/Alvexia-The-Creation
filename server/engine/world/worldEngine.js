@@ -1,5 +1,6 @@
 const fs = require("fs");
-var WORLD = {} , PJS = {};
+var WORLD = {},
+  PJS = {};
 const { SERVER } = require("../../../config.js");
 const mapsRoute = SERVER + "/database/maps/";
 const User = require(SERVER + "/database/models/User.js");
@@ -16,6 +17,7 @@ const loadMaps = () => {
       const key = `${mapData.x}_${mapData.y}`; // Usa la posición para definir la clave del mapa en WORLD
       WORLD[key] = mapData; // Guarda el mapa en el objeto WORLD usando las coordenadas como clave
       PJS[key] = {};
+      Engine.addLoop(key);
     }
   });
   console.log("Map segments loaded successfully into WORLD.");
@@ -38,6 +40,7 @@ const createMap = (name, x, y, size_x, size_y) => {
     size_y,
     objects: [],
     npcs: [],
+    creatures: [],
     collectibles: [],
     triggers: []
   };
@@ -62,39 +65,125 @@ const getMap = (x, y) => {
   return { status: "success", message: { world: WORLD[mapKey], pjs: PJS[mapKey] } };
 }
 
-const joinMap = async (zone, coords, socket, io) => {
+const joinMap = async (zone, coords, socket, io, pjStatus) => {
   const char = await Character.findById(socket.char_id);
 
   if (!char) return { status: "error", message: "CHAR_NOT_FOUND" };
-  
-  const map = getMap(zone.x , zone.y);
-  if(map.status == "error") return map;
-  
-  
+
+  const map = getMap(zone.x, zone.y);
+  if (map.status == "error") return map;
+
+
   const mapKey = `${zone.x}_${zone.y}`;
-  
-  PJS[mapKey][socket.char_id] = {
+
+  if (pjStatus) {
+    PJS[mapKey][socket.char_id] = pjStatus;
+    PJS[mapKey][socket.char_id].coords = coords;
+  }
+  else PJS[mapKey][socket.char_id] = {
     name: char.name,
     skin: char.skin,
     level: char.level,
     coords: coords,
     isMoving: false,
-    movingTo: null
+    movingTo: null,
+    speed: char.speed || 1
   };
-  
-  socket.emit("getMap" , map.message);
+
+  socket.emit("getMap", map.message);
   socket.join(mapKey);
-  
-  socket.to(mapKey).emit("newPj" , {[socket.char_id]: PJS[mapKey][socket.char_id]});
-  
-  return {status: "success" , message: "JOINED_MAP"};
+
+  socket.to(mapKey).emit("newPj", {
+    [socket.char_id]: PJS[mapKey][socket.char_id]
+  });
+
+  return { status: "success", message: "JOINED_MAP" };
 
 };
 
+const leaveMap = async (socket, io) => {
+  const char = await Character.findById(socket.char_id);
+
+  if (!char) return { status: "error", message: "CHAR_NOT_FOUND" };
+
+  const map = getMap(char.zone.x, char.zone.y);
+  if (map.status == "error") return map;
+
+
+  const mapKey = `${zone.x}_${zone.y}`;
+
+  await socket.to(mapKey).emit("delPj", socket.char_id);
+  const currentStatus = { ...PJS[mapKey][socket.char_id] };
+  delete PJS[mapKey][socket.char_id];
+  return { status: "success", message: currentStatus };
+};
+
+const switchMap = async (zone, coords, socket, io) => {
+  const cstatus = await leaveMap(socket, io);
+  if (cstatus.status == "error") return cstatus;
+  const newMap = await joinMap(zone, coords, socket, io, cstatus);
+  return newMap;
+};
+
+const updateMovement = (position, moveTo, speed, ms) => {
+  if (!moveTo) return position; // Si no hay destino, devuelve la posición actual.
+
+  const { x: currentX, y: currentY } = position;
+  const { x: targetX, y: targetY } = moveTo;
+
+  const distanceX = targetX - currentX; // Distancia en X
+  const distanceY = targetY - currentY; // Distancia en Y
+  const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2); // Distancia total
+
+  const displacementPerTick = (speed * ms) / 1000; // Desplazamiento por tick
+
+  if (distance <= displacementPerTick) {
+    return { x: targetX, y: targetY, finished: true }; // Llegó al destino
+  }
+
+  const moveRatioX = distanceX / distance; // Proporción en X
+  const moveRatioY = distanceY / distance; // Proporción en Y
+
+  const newX = currentX + moveRatioX * displacementPerTick; // Nueva X
+  const newY = currentY + moveRatioY * displacementPerTick; // Nueva Y
+
+  return { x: newX, y: newY };
+};
+
+const engine = (ms) => {
+  var loops = {};
+  const addLoop = (mapKey) => {
+    if (loops[mapKey]) return;
+    const loop = () => {
+      Object.keys(PJS[mapKey]).forEach(char_id => {
+        const character = PJS[mapKey][char_id];
+        if (character.isMoving) {
+          const um = updateMovement(character.coords, character.moveTo, character.speed, ms);
+          character.coords = {
+            x: um.x,
+            y: um.y
+          };
+          if (um.finished) {
+            character.moveTo = null;
+            character.isMoving = false;
+          }
+        }
+      });
+    };
+    loops[mapKey] = setInterval(loop, ms);
+  };
+
+  return { addLoop };
+};
+
+const Engine = engine(30);
 
 module.exports = {
   createMap,
   loadMaps,
   getMap,
-  joinMap
+  joinMap,
+  leaveMap,
+  switchMap,
+  Engine
 }
