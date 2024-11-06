@@ -127,7 +127,11 @@ const switchMap = async (zone, coords, socket, io) => {
 };
 
 const movePj = async (socket , x , y) => {
-  
+  if(!socket.cmap) return; 
+  if(!PJS[socket.cmap] || !PJS[socket.cmap][socket.char_id]) return;
+  PJS[socket.cmap][socket.char_id].isMoving = true;
+  PJS[socket.cmap][socket.char_id].moveTo = { x , y};
+  socket.to(socket.cmap).emit("pjMove" , {[socket.char_id] : {isMoving: true , moveTo: {x , y}}});
 };
 
 const updateMovement = (position, moveTo, speed, ms) => {
@@ -190,5 +194,6 @@ module.exports = {
   joinMap,
   leaveMap,
   switchMap,
+  movePj,
   Engine
 }
