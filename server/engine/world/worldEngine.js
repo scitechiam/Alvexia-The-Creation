@@ -92,6 +92,7 @@ const joinMap = async (zone, coords, socket, io, pjStatus) => {
 
   socket.emit("getMap", map.message);
   socket.join(mapKey);
+  socket.cmap = mapKey;
 
   socket.to(mapKey).emit("newPj", {
     [socket.char_id]: PJS[mapKey][socket.char_id]
@@ -123,6 +124,10 @@ const switchMap = async (zone, coords, socket, io) => {
   if (cstatus.status == "error") return cstatus;
   const newMap = await joinMap(zone, coords, socket, io, cstatus);
   return newMap;
+};
+
+const movePj = async (socket , x , y) => {
+  
 };
 
 const updateMovement = (position, moveTo, speed, ms) => {
