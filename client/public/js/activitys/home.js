@@ -1,5 +1,10 @@
 const Home = ()=> {
   const content_news = getById('content_news');
+  const content_init = getById('content_init');
+  let hash = window.location.hash;
+  if (hash == "#home") {
+    content_init.style.display = "flex"
+  }
   client.getNews((res)=> {
     let status = verify("status", res);
     if (status == 403) show("Error de conexión");

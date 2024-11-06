@@ -86,7 +86,11 @@
   font-size: var(--sizeInputEdit);
 }*/
 .toast-success {
-/*  position: absolute;
-  bottom: 50vw;*/
-  background: green;
+  position: absolute;
+  bottom: 50vh;
+  padding: 10px;
+  background: var(--shadow);
+  transition: all 0.5s ease;
+  border-radius: 10px;
+  /*,border: 2px solid red;*/
 }

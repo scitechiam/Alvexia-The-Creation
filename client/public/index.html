@@ -6,6 +6,7 @@
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/useful.css">
   <script src="js/index.js"></script>
+  <script src="js/activitys/create_character.js"></script>
   <script src="js/useful.js"></script>
   <script src="js/logic.js"></script>
   <script src="js/client.js"></script>
@@ -13,7 +14,7 @@
   <script src="js/activitys/login.js"></script>
   <script src="js/activitys/register.js"></script>
   <script src="js/activitys/password_reset.js"></script>
-  <script src="js/activitys/create_character.js"></script>
+
   <script src="engine/main.js"></script>
   <script src="engine/useful.js"></script>
   <script src="engine/modules/Texture.js"></script>
@@ -40,79 +41,162 @@
     <symbol id="icon_show_password" viewBox="0 0 100 100">
       <circle cy="50" cx="50" r="49" fill='#434343' stroke="#ffffff" stroke-width="3" /> <path d="M20 50 Q50 10 80 50 50 90 20 50" fill="none" stroke="white" stroke-width="3" stroke-linejoin="round" stroke-linecap="round" /><circle cy="50" cx="50" r="10" fill="none" stroke="white" stroke-width="3" />
     </symbol>
+    <symbol id="icon_setting" viewBox="0 0 24 24">
+      <path fill="white" d="M12,15.5A3.5,3.5 0 0,1 8.5,12A3.5,3.5 0 0,1 12,8.5A3.5,3.5 0 0,1 15.5,12A3.5,3.5 0 0,1 12,15.5M19.43,12.97C19.47,12.65 19.5,12.33 19.5,12C19.5,11.67 19.47,11.34 19.43,11L21.54,9.37C21.73,9.22 21.78,8.95 21.66,8.73L19.66,5.27C19.54,5.05 19.27,4.96 19.05,5.05L16.56,6.05C16.04,5.66 15.5,5.32 14.87,5.07L14.5,2.42C14.46,2.18 14.25,2 14,2H10C9.75,2 9.54,2.18 9.5,2.42L9.13,5.07C8.5,5.32 7.96,5.66 7.44,6.05L4.95,5.05C4.73,4.96 4.46,5.05 4.34,5.27L2.34,8.73C2.21,8.95 2.27,9.22 2.46,9.37L4.57,11C4.53,11.34 4.5,11.67 4.5,12C4.5,12.33 4.53,12.65 4.57,12.97L2.46,14.63C2.27,14.78 2.21,15.05 2.34,15.27L4.34,18.73C4.46,18.95 4.73,19.03 4.95,18.95L7.44,17.94C7.96,18.34 8.5,18.68 9.13,18.93L9.5,21.58C9.54,21.82 9.75,22 10,22H14C14.25,22 14.46,21.82 14.5,21.58L14.87,18.93C15.5,18.67 16.04,18.34 16.56,17.94L19.05,18.95C19.27,19.03 19.54,18.95 19.66,18.73L21.66,15.27C21.78,15.05 21.73,14.78 21.54,14.63L19.43,12.97Z" />
+    </symbol>
+    <symbol id="icon_telegram" viewBox="0 0 24 24">
+      <path fill="white" d="M9.78,18.65L10.06,14.42L17.74,7.5C18.08,7.19 17.67,7.04 17.22,7.31L7.74,13.3L3.64,12C2.76,11.75 2.75,11.14 3.84,10.7L19.81,4.54C20.54,4.21 21.24,4.72 20.96,5.84L18.24,18.65C18.05,19.56 17.5,19.78 16.74,19.36L12.6,16.3L10.61,18.23C10.38,18.46 10.19,18.65 9.78,18.65Z" />
+    </symbol>
+    <symbol id="icon_whatsapp" viewBox="0 0 24 24">
+      <path fill="white" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91C2.13 13.66 2.59 15.36 3.45 16.86L2.05 22L7.3 20.62C8.75 21.41 10.38 21.83 12.04 21.83C17.5 21.83 21.95 17.38 21.95 11.92C21.95 9.27 20.92 6.78 19.05 4.91C17.18 3.03 14.69 2 12.04 2M12.05 3.67C14.25 3.67 16.31 4.53 17.87 6.09C19.42 7.65 20.28 9.72 20.28 11.92C20.28 16.46 16.58 20.15 12.04 20.15C10.56 20.15 9.11 19.76 7.85 19L7.55 18.83L4.43 19.65L5.26 16.61L5.06 16.29C4.24 15 3.8 13.47 3.8 11.91C3.81 7.37 7.5 3.67 12.05 3.67M8.53 7.33C8.37 7.33 8.1 7.39 7.87 7.64C7.65 7.89 7 8.5 7 9.71C7 10.93 7.89 12.1 8 12.27C8.14 12.44 9.76 14.94 12.25 16C12.84 16.27 13.3 16.42 13.66 16.53C14.25 16.72 14.79 16.69 15.22 16.63C15.7 16.56 16.68 16.03 16.89 15.45C17.1 14.87 17.1 14.38 17.04 14.27C16.97 14.17 16.81 14.11 16.56 14C16.31 13.86 15.09 13.26 14.87 13.18C14.64 13.1 14.5 13.06 14.31 13.3C14.15 13.55 13.67 14.11 13.53 14.27C13.38 14.44 13.24 14.46 13 14.34C12.74 14.21 11.94 13.95 11 13.11C10.26 12.45 9.77 11.64 9.62 11.39C9.5 11.15 9.61 11 9.73 10.89C9.84 10.78 10 10.6 10.1 10.45C10.23 10.31 10.27 10.2 10.35 10.04C10.43 9.87 10.39 9.73 10.33 9.61C10.27 9.5 9.77 8.26 9.56 7.77C9.36 7.29 9.16 7.35 9 7.34C8.86 7.34 8.7 7.33 8.53 7.33Z" />
+    </symbol>
+    <symbol id="icon_arrow_left" viewBox="0 0 24 24">
+      <path fill="white" d="M20,9V15H12V19.84L4.16,12L12,4.16V9H20Z" />
+    </symbol>
+    <symbol id="icon_arrow_right" viewBox="0 0 24 24">
+      <path fill="white" d="M4,15V9H12V4.16L19.84,12L12,19.84V15H4Z" />
+    </symbol>
+    <symbol id="icon_content_save" viewBox="0 0 24 24">
+      <path fill="white" d="M15,9H5V5H15M12,19A3,3 0 0,1 9,16A3,3 0 0,1 12,13A3,3 0 0,1 15,16A3,3 0 0,1 12,19M17,3H5C3.89,3 3,3.9 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V7L17,3Z" />
+    </symbol>
+    <symbol id="icon_content_close" viewBox="0 0 24 24">
+      <path fill="white" d="M20 6.91L17.09 4L12 9.09L6.91 4L4 6.91L9.09 12L4 17.09L6.91 20L12 14.91L17.09 20L20 17.09L14.91 12L20 6.91Z" />
+    </symbol>
+    <symbol id="icon_palette" viewBox="0 0 24 24">
+      <path fill="white" d="M17.5,12A1.5,1.5 0 0,1 16,10.5A1.5,1.5 0 0,1 17.5,9A1.5,1.5 0 0,1 19,10.5A1.5,1.5 0 0,1 17.5,12M14.5,8A1.5,1.5 0 0,1 13,6.5A1.5,1.5 0 0,1 14.5,5A1.5,1.5 0 0,1 16,6.5A1.5,1.5 0 0,1 14.5,8M9.5,8A1.5,1.5 0 0,1 8,6.5A1.5,1.5 0 0,1 9.5,5A1.5,1.5 0 0,1 11,6.5A1.5,1.5 0 0,1 9.5,8M6.5,12A1.5,1.5 0 0,1 5,10.5A1.5,1.5 0 0,1 6.5,9A1.5,1.5 0 0,1 8,10.5A1.5,1.5 0 0,1 6.5,12M12,3A9,9 0 0,0 3,12A9,9 0 0,0 12,21A1.5,1.5 0 0,0 13.5,19.5C13.5,19.11 13.35,18.76 13.11,18.5C12.88,18.23 12.73,17.88 12.73,17.5A1.5,1.5 0 0,1 14.23,16H16A5,5 0 0,0 21,11C21,6.58 16.97,3 12,3Z" />
+    </symbol>
   </svg>
   <div id="content">
     <div id="xwindow" style="display:flex">
-      <div class="content-org">
+      <!-- <div class="content-org">-->
 
-        <div title="#login #register #password_reset" class="content-title content-dialog activity">
-          <img id="img1" src="assets/pj_1.png"></img>
-          <img id="img2" src="assets/flw_2.png"></img>
-          <h1>Alvexia</h1>
-        </div>
+      <div title="#login #register #password_reset" class="content-title content-dialog activity">
+        <img id="img1" src="assets/pj_1.png"></img>
+        <img id="img2" src="assets/flw_2.png"></img>
+        <h1>Alvexia</h1>
+      </div>
 
-        <div title="#login" id="content_login" class="content-dialog activity">
-          <h3>Iniciar</h3>
-          <div id="email_login" class="input-edit" placeholder="Email" contenteditable="true"></div>
-          <div id="password_login" class="input-edit" placeholder="Contraseña" contenteditable="true"></div>
-          <span id="btn_password_reset" class="span-touch">¿No recuerdas la contraseña?</span>
-          <br>
-          <button id="btn_start_login">Aceptar</button>
-          <br>
-          <a>¿No tienes cuenta? <span id="btn_go_regsiter" class="span-touch">Registrarse</span></a>
-        </div>
+      <div title="#login" id="content_login" class="content-dialog activity">
+        <h3>Iniciar</h3>
+        <div id="email_login" class="input-edit" placeholder="Email" contenteditable="true"></div>
+        <div id="password_login" class="input-edit" placeholder="Contraseña" contenteditable="true"></div>
+        <span id="btn_password_reset" class="span-touch">¿No recuerdas la contraseña?</span>
+        <br>
+        <button id="btn_start_login">Aceptar</button>
+        <br>
+        <a>¿No tienes cuenta? <span id="btn_go_regsiter" class="span-touch">Registrarse</span></a>
+      </div>
 
-        <div title="#register" id="content_register" class="content-dialog activity">
-          <h3>Registrarse</h3>
-          <div id="email_register" class="input-edit" placeholder="Email" contenteditable="true"></div>
-          <div id="password_register" class="input-edit" placeholder="Contraseña" contenteditable="true"></div>
-          <div id="password2_register" class="input-edit" placeholder="Repetir contraseña" contenteditable="true"></div>
-          <div style="display:none" id="input_content_password_login" class="input-password" placeholder="Contraseña">
-            <input id="input_password_login" type="password"><div id="btn_show_password_login" class="btn-password">
-              <svg><use xlink:href="#icon_show_password" /></svg>
-            </div>
+      <div title="#register" id="content_register" class="content-dialog activity">
+        <h3>Registrarse</h3>
+        <div id="email_register" class="input-edit" placeholder="Email" contenteditable="true"></div>
+        <div id="password_register" class="input-edit" placeholder="Contraseña" contenteditable="true"></div>
+        <div id="password2_register" class="input-edit" placeholder="Repetir contraseña" contenteditable="true"></div>
+        <div style="display:none" id="input_content_password_login" class="input-password" placeholder="Contraseña">
+          <input id="input_password_login" type="password">
+          <div id="btn_show_password_login" class="btn-password">
+            <svg><use xlink:href="#icon_show_password" /></svg>
           </div>
-          <button id="btn_start_register">Aceptar</button>
-          <br>
-          <a>¿Ya tienes cuenta? <span id="btn_back_login" class="span-touch">Iniciar</span></a>
         </div>
+        <button id="btn_start_register">Aceptar</button>
+        <br>
+        <a>¿Ya tienes cuenta? <span id="btn_back_login" class="span-touch">Iniciar</span></a>
+      </div>
 
-        <div title="#password_reset" id="content_password_reset" class="content-dialog activity">
-          <h3>Recuperar contraseña</h3>
-          <div id="email_password_reset" class="input-edit" placeholder="Email" contenteditable="true"></div>
-          <button>Enviar código</button>
-          <br>
-          <span id="btn_back_no_reset" class="span-touch">Regresar </span>
-        </div>
+      <div title="#password_reset" id="content_password_reset" class="content-dialog activity">
+        <h3>Recuperar contraseña</h3>
+        <div id="email_password_reset" class="input-edit" placeholder="Email" contenteditable="true"></div>
+        <button>Enviar código</button>
+        <br>
+        <span id="btn_back_no_reset" class="span-touch">Regresar </span>
+      </div>
 
-        <div title="#home" id="content_init" class="content-dialog activity">
+      <div title="#home" id="content_init" class="activity">
+
+        <div class="content-dialog">
           <button id="btn_init_play" style="width:100%;display:none;">Jugar</button>
           <button id="btn_init_create_character" style="width:100%">Crear Personaje</button>
-          <div class="content-init-top">
-            <div>
-              <button>Redes Sociales</button>
-              <button>Ajustes </button>
+        </div>
+        <div class="content-init-top">
+          <div style="display: flex">
+            <!-- <button>Redes Sociales</button>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <button>Ajustes </button>-->
+            <div id="btn_home_setti" class="btn-round">
+              <svg><use xlink:href="#icon_whatsapp" /></svg>
             </div>
-            <div id="content_news" class="content-news">
-              <h3>Noticias</h3>
-
+            <div id="btn_home_setti" class="btn-round">
+              <svg><use xlink:href="#icon_telegram" /></svg>
+            </div>
+            <div id="btn_home_setting" class="btn-round">
+              <svg><use xlink:href="#icon_setting" /></svg>
             </div>
           </div>
+          <div id="content_news" class="content-news">
+            <h3>Noticias</h3>
+
+          </div>
         </div>
-
-        <div title="#create_character" id="content_create_character" style="display:none" class="content-dialog activity">
-          <div id="name_character" class="input-edit" placeholder="Nombre" contenteditable="true"></div>
-          <img src="assets/pj_1.png">
-          <br>
-          <button id="btn_create_character" style="width:100%;">Crear</button>
-        </div>
-
-       <!-- <div id="toast" class="content-dialog" style="display:none">
-          Error
-        </div>-->
-
       </div>
+      <!--Crear Personaje-->
+      <div title="#create_character" id="content_create_character" class="activity content-create-character">
+        <!--Rasas-->
+        <div style="width:50%;height:50%; display:flex;flex-wrap:wrap;">
+          
+          <div style="display:flex;flex-wrap:wrap;background:var(--bgtrans);flex-grow: 0;flex-shrink: 0;">
+
+            <div id="btn_select_elfo" class="btn-round">
+              <img src="assets/pj_1.png">
+              Elfo
+            </div>
+            <div id="btn_select_ogro" class="btn-round">
+              <img src="assets/pj_1.png">
+              Ogro
+            </div>
+
+          </div>
+        </div>
+        <!--Historia--->
+        <div style="width:50%; height:50%;">
+          Historia
+          <div>
+            <p>
+              Blablabla
+            </p>
+          </div>
+        </div>
+        <div style="width:100%;height:50%;display:flex;justify-content:center; align-items:center;flex-wrap:wrap; ">
+          <div style="width:100%; height:50px;display:flex; justify-content:end;">
+            <div id="btn_home_setting" class="btn-round">
+              <svg><use xlink:href="#icon_palette" /></svg>
+            </div>
+          </div>
+          <div id="btn_home_setting" class="btn-round">
+            <svg><use xlink:href="#icon_arrow_left" /></svg>
+          </div>
+
+          <div id="content_character_run">
+          </div>
+          <div id="btn_home_setting" class="btn-round">
+            <svg><use xlink:href="#icon_arrow_right" /></svg>
+          </div>
+        </div>
+        <div style="position: absolute;bottom:10px;display:flex; height:40px;width:100%;justify-content: center;align-items: center;">
+
+          <div onclick="goTo('#home')" id="btn_create_character_cancel" class="btn-round">
+            <svg><use xlink:href="#icon_content_close" /></svg>
+          </div>
+          <div style="background:var(--xwindow);" id="input_name_character" class="input-edit" placeholder="Nombre" contenteditable="true"></div>
+
+
+
+          <div id="btn_create_character" class="btn-round">
+            <svg><use xlink:href="#icon_content_save" /></svg>
+          </div>
+        </div>
+      </div>
+
+
     </div>
-  </div>
-</body>
+
+  </body>
 </html>

@@ -13,7 +13,8 @@ class Sprite extends Texture {
       }
     }
   }
-  move(touch) {
+  isStop = false;
+  move(touch, isMoveStop) {
     var dx = touch.x - this.x;
     var dy = touch.y - this.y;
     var distance = this.distance = Math.sqrt(dx * dx + dy * dy);
@@ -33,14 +34,14 @@ class Sprite extends Texture {
         this.direction = dy >= 0 ? "bottom": "top";
       }
     }
-    var isStop =distance == 0;
-    var frames = isStop ? this.animation.stop[this.direction]: this.animation.run[this.direction];
+    this.isStop = isMoveStop ? false: distance == 0;
+    var frames = this.isStop ? this.animation.stop[this.direction]: this.animation.run[this.direction];
     this.SPEED_FRAMES = 5;
     this.count_move++;
     if (this.count_move >= this.SPEED_FRAMES) {
       this.animation.toY = frames.y + this.animation.y;
       var toX = this.animation.x;
-      if (isStop) {
+      if (this.isStop) {
         this.count_stop++;
         if (this.count_stop > (50 + Math.floor(Math.random()*200))) {
           toX = this.animation.toX >= frames.x + this.animation.x ? this.animation.x: this.animation.toX + 1;
@@ -53,4 +54,5 @@ class Sprite extends Texture {
       this.count_move = 0;
     }
   }
+  runStop(direction) {}
 }

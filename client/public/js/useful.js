@@ -1,5 +1,10 @@
 const getById = (id)=> {
+  try {
   return document.getElementById(id);
+  } catch(e){
+    console.log(e)
+    return {};
+  }
 }
 const saveLocal = (key, value)=> {
   window.localStorage.setItem(key, value);
@@ -22,9 +27,13 @@ class Toast {
   constructor(text) {
     const cont = document.createElement("div");
     cont.className = "toast-success";
-    getById("xwindow").appendChild(cont)
+    cont.innerText = text;
+    getById("xwindow").appendChild(cont);
     setTimeout(()=> {
-      getById("xwindow").removeChild(cont)
+      cont.style.transform = "translateX(100vw)"
+      setTimeout(()=>{
+      getById("xwindow").removeChild(cont);
+      }, 100);
     }, 4000);
   }
 }

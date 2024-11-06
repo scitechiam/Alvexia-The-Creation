@@ -76,7 +76,7 @@ function connectSocketIO(token) {
   function startEvents(socket) {
     socket.on("createCharacter", (data)=> {
       if (data instanceof Object) {
-        show("Perosnaje creado")
+        show("Personaje creado")
         console.log(data)
       } else {
         show(data)
@@ -95,7 +95,9 @@ function connectSocketIO(token) {
       });
     socket.on("error",
       (e)=> {
-        if (e == "INVALID_TOKEN") goTo("login");
+        if (e == "INVALID_TOKEN"){ 
+          goTo("login");
         console.log(e)
+        }
       })
   }
