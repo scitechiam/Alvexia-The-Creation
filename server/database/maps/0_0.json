@@ -1,0 +1,14 @@
+{
+    "name": "Mapa 1",
+    "x": 0,
+    "y": 0,
+    "size_x": 99,
+    "size_y": 99,
+    "default_texture": "g_1",
+    "objects": [],
+    "npcs": [],
+    "creatures": [],
+    "collectibles": [],
+    "triggers": []
+  }
+  

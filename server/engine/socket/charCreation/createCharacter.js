@@ -32,6 +32,7 @@ const createCharacter = async (socket, io) => {
         user: user._id,
         name: data.name,
         race: data.race,
+        zone: {x: 0 , y : 0},
         skin: data.skin || `${data.race}_1`,
       });
 

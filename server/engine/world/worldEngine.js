@@ -38,6 +38,7 @@ const createMap = (name, x, y, size_x, size_y) => {
     y,
     size_x,
     size_y,
+    default_texture: "g_1",
     objects: [],
     npcs: [],
     creatures: [],
