@@ -21,7 +21,7 @@ const enterWorld = async (socket, io) => {
         return socket.emit(EVENT,{status:"error" , message: "CHAR_NOT_SELECTED" }  );
       }
 
-      const character = await Character.find({ user: user._id , _id: selected_char});
+      const character = await Character.findOne({ user: user._id , _id: selected_char});
       
       if(!character) {
         return socket.emit(EVENT , {status: "error" , message: "CHAR_NOT_FOUND"});
