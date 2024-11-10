@@ -5,15 +5,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="css/index.css">
   <link rel="stylesheet" href="css/useful.css">
+
+  <script src="plugins/socket.io.js"></script>
+  <script src="plugins/eruda.js"></script>
+  <script src="plugins/modules.js"></script>
+
   <script src="js/index.js"></script>
-  <script src="js/activitys/create_character.js"></script>
   <script src="js/useful.js"></script>
   <script src="js/logic.js"></script>
   <script src="js/client.js"></script>
+  <script src="js/utils/character_selection.js"></script>
+
   <script src="js/activitys/home.js"></script>
   <script src="js/activitys/login.js"></script>
   <script src="js/activitys/register.js"></script>
   <script src="js/activitys/password_reset.js"></script>
+  <script src="js/activitys/create_character.js"></script>
 
   <script src="engine/main.js"></script>
   <script src="engine/useful.js"></script>
@@ -23,10 +30,9 @@
   <script src="engine/modules/Square.js"></script>
   <script src="engine/modules/Sprite.js"></script>
   <script src="engine/modules/Circle.js"></script>
-  <script src="engine/modules/Collision.js"></script>
+  <!--  <script src="engine/modules/Collision.js"></script>-->
   <script src="engine/modules/Text.js"></script>
-  <script src="plugins/socket.io.js"></script>
-  <script src="plugins/eruda.js"></script>
+
   <title>Alvexia</title>
 </head>
 <body>
@@ -36,6 +42,7 @@
         theme: 'dark'
       });
     }
+    window.location.hash = "";
   </script>
   <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
     <symbol id="icon_show_password" viewBox="0 0 100 100">
@@ -87,6 +94,7 @@
         <a>¿No tienes cuenta? <span id="btn_go_regsiter" class="span-touch">Registrarse</span></a>
       </div>
 
+      <!--Registrarse-->
       <div title="#register" id="content_register" class="content-dialog activity">
         <h3>Registrarse</h3>
         <div id="email_register" class="input-edit" placeholder="Email" contenteditable="true"></div>
@@ -102,7 +110,7 @@
         <br>
         <a>¿Ya tienes cuenta? <span id="btn_back_login" class="span-touch">Iniciar</span></a>
       </div>
-
+      <!--Resetear Contraseña-->
       <div title="#password_reset" id="content_password_reset" class="content-dialog activity">
         <h3>Recuperar contraseña</h3>
         <div id="email_password_reset" class="input-edit" placeholder="Email" contenteditable="true"></div>
@@ -110,17 +118,31 @@
         <br>
         <span id="btn_back_no_reset" class="span-touch">Regresar </span>
       </div>
-
+      <!--Home--->
       <div title="#home" id="content_init" class="activity">
-
         <div class="content-dialog">
-          <button id="btn_init_play" style="width:100%;display:none;">Jugar</button>
+          <div id="content_select_character_home" style="display: flex;flex-direction:column;justify-content; align-items:center;text-align:center;">
+            <div style="width:100%; display:flex; justify-content:center;align-items:center">
+              <div id="btn_character_back_home" class="btn-round">
+                <svg><use xlink:href="#icon_arrow_left" /></svg>
+              </div>
+
+              <div id="content_character_select_run_home">
+              </div>
+              <div id="btn_character_next_home" class="btn-round">
+                <svg><use xlink:href="#icon_arrow_right" /></svg>
+              </div>
+            </div>
+            <h3 id="text_name_character">Name</h3>
+          </div>
+
+          <button id="btn_init_play" style="width:100%;">Jugar</button>
           <button id="btn_init_create_character" style="width:100%">Crear Personaje</button>
         </div>
         <div class="content-init-top">
           <div style="display: flex">
             <!-- <button>Redes Sociales</button>
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <button>Ajustes </button>-->
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          <button>Ajustes </button>-->
             <div id="btn_home_setti" class="btn-round">
               <svg><use xlink:href="#icon_whatsapp" /></svg>
             </div>
@@ -133,7 +155,6 @@
           </div>
           <div id="content_news" class="content-news">
             <h3>Noticias</h3>
-
           </div>
         </div>
       </div>
@@ -141,9 +162,7 @@
       <div title="#create_character" id="content_create_character" class="activity content-create-character">
         <!--Rasas-->
         <div style="width:50%;height:50%; display:flex;flex-wrap:wrap;">
-          
           <div style="display:flex;flex-wrap:wrap;background:var(--bgtrans);flex-grow: 0;flex-shrink: 0;">
-
             <div id="btn_select_elfo" class="btn-round">
               <img src="assets/pj_1.png">
               Elfo
@@ -152,7 +171,6 @@
               <img src="assets/pj_1.png">
               Ogro
             </div>
-
           </div>
         </div>
         <!--Historia--->
@@ -170,13 +188,13 @@
               <svg><use xlink:href="#icon_palette" /></svg>
             </div>
           </div>
-          <div id="btn_home_setting" class="btn-round">
+          <div id="btn_character_back_create" class="btn-round">
             <svg><use xlink:href="#icon_arrow_left" /></svg>
           </div>
 
           <div id="content_character_run">
           </div>
-          <div id="btn_home_setting" class="btn-round">
+          <div id="btn_character_next_create" class="btn-round">
             <svg><use xlink:href="#icon_arrow_right" /></svg>
           </div>
         </div>
@@ -186,13 +204,11 @@
             <svg><use xlink:href="#icon_content_close" /></svg>
           </div>
           <div style="background:var(--xwindow);" id="input_name_character" class="input-edit" placeholder="Nombre" contenteditable="true"></div>
-
-
-
           <div id="btn_create_character" class="btn-round">
             <svg><use xlink:href="#icon_content_save" /></svg>
           </div>
         </div>
+
       </div>
 
 

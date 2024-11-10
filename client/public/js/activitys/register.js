@@ -1,4 +1,4 @@
-const Register = (socket)=> {
+module.exp.register_page = (socket)=> {
   const content_register = getById("content_register");
   const email_register = getById("email_register");
   const password_register = getById("password_register");

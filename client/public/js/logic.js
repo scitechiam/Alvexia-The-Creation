@@ -1,7 +1,7 @@
-const initLogic = (()=>{
+const initLogic = (()=> {
   const eng = new Engine("content");
   const event = new EngineEvent(eng);
-  const BLOCK = eng.BLOCK_LENGTH * 10;
+  const BLOCK = eng.BLOCK_LENGTH * 3;
   const floor = new Floor(eng, {
     W: BLOCK, H: BLOCK,
     src: "/assets/grass01.png"
@@ -9,7 +9,7 @@ const initLogic = (()=>{
   const textures = [];
   const player = new Sprite( {
     id: "player",
-    W: eng.BLOCK *3, H: eng.BLOCK*3,
+    W: eng.BLOCK *3, H: eng.BLOCK * 3,
     src: "/assets/sheet_player01.png",
     speed: 5, floor: floor,
     animation: {

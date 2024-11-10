@@ -1,14 +1,12 @@
 class Engine {
   constructor(id) {
     var content = document.getElementById(id);
-    console.log(content)
     var cont_rect = content.getBoundingClientRect();
-    console.log("rect", cont_rect)
     this.canvas = document.createElement("canvas");
     //this.canvas.style.background = "blue"
     //  this.canvas.style.zIndex = "999"
-    this.W = this.canvas.width = cont_rect.width == 0 ? content.offsetWidth : cont_rect.width ;
-    this.H = this.canvas.height = cont_rect.height == 0?content.offsetHeight : cont_rect.height;
+    this.W = this.canvas.width = cont_rect.width == 0 ? content.offsetWidth: cont_rect.width;
+    this.H = this.canvas.height = cont_rect.height == 0?content.offsetHeight: cont_rect.height;
     this.ctx = this.canvas.getContext("2d");
     this.C_X = (this.W / 2);
     this.C_Y = (this.H / 2);

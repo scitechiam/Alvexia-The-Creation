@@ -97,7 +97,7 @@ function connectSocketIO(token) {
       (e)=> {
         if (e == "INVALID_TOKEN"){ 
           goTo("login");
-        console.log(e)
         }
+        console.log(e)
       })
   }

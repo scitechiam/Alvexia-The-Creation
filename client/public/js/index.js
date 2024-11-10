@@ -1,38 +1,46 @@
 window.onload = (()=> {
-  //saveLocal("token", "ksk")
-  let socket = getLocal("token") != null ? connectSocketIO(getLocal("token")): null;
+  const save_local = require("save_local");
+  const home_page = require("home_page");
+  const login_page = require("login_page");
+  const register_page = require("register_page");
+  const create_character_page = require("create_character_page");
+  const go_to_page = require("go_to_page");
+
+  let socket = save_local.exists("token") ? connectSocketIO(save_local.get("token")): null;
   if (socket != null) {
-    startEvents(socket);
-    goTo("home");
-    socket.emit("getCharacters");
+    //startEvents(socket);
+    go_to_page("home");
   } else {
-    goTo("login")
+    go_to_page("login");
   }
+
 
   const pages = document.querySelectorAll(".activity");
   window.onhashchange = function() {
-    const myhash = window.location.hash;
-    if (myhash == "#home") {
-      socket.emit("getCharacters");
-    }
-
+    const hash = window.location.hash;
     for (let page of pages) {
       if (page.title != "") {
-        page.style.display = page.title.match(myhash) ? "flex": "none";
+        page.style.display = page.title.match(hash) ? "flex": "none";
       }
     }
-    if (myhash == "#create_character") {
-      document.getElementById("content_character_run").innerText = ""
-      const eng = new Engine("content_character_run");
-      CreateCharacter(socket, eng);
-      console.log("char")
+    switch (hash) {
+      case "#home":
+        home_page(socket);
+        break;
+      case "#create_character":
+        create_character_page(socket);
+        break;
     }
   }
-  //  show("Hols")
+  socket.on("error", (e)=> {
+    if (e == "INVALID_TOKEN") {
+      go_to_page("login");
+    }
+    console.log("error",e);
+  });
 
   initLogic();
-  Home();
-  Login(socket);
-  Register(socket)
+  login_page(socket);
+  register_page(socket);
 
 });

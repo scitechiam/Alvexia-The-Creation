@@ -2,7 +2,6 @@ class EngineEvent {
   constructor(eng) {
     this.client_rect = eng.canvas.getBoundingClientRect();
     this.canvas = eng.canvas;
-    console.log(this.client_rect)
   }
   on(type, callback) {
     switch (type) {

@@ -259,6 +259,7 @@ button:disabled {
   background-size: cover;
   /* transition: all 0.5s ease;*/
 }
+
 #content_character_run {
   display: flex;
   width: 150px;
@@ -271,10 +272,20 @@ button:disabled {
   /*position: absolute;
   z-index: 99;*/
 }
+#content_character_select_run_home {
+  width: 150px;
+  height: 150px;
+  border-radius: 10px;
+  border: 2px solid var(--shadow);
+  background: var(--bgtrans);
+}
 .btn-round * {
   width: 100%;
   height: 100%;
 }
 .btn-round:active {
+  background: var(--shadow);
+}
+.btn-round:disabled {
   background: var(--shadow);
 }

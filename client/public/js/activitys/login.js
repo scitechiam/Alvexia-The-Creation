@@ -1,4 +1,4 @@
-const Login = (socket)=> {
+module.exp.login_page = (socket)=> {
   const content_login = getById("content_login");
   const email_login = getById("email_login");
   const password_login = getById("password_login");
@@ -19,7 +19,6 @@ const Login = (socket)=> {
 
     client.login(data, (res)=> {
       let status = verify("status", res);
-      console.log(res)
       if (status == 403) return show("Error de conexión");
       if (status == "error") return show(`Error en el servidor:\n ${res.error}`);
       if (status != "success") return show("Error desconocido");

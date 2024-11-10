@@ -58,9 +58,8 @@ class Floor {
 
   drawElements(isMx, isMy, c_x, c_y) {
     this.order.sort(function(a, b) {
-      moveSprite(b, a, 3)
       return (a.y + a.W / 2) - (b.y + b.H / 2);
-    })
+    });
     for (var i = 0; i < this.order.length; i++) {
       this.order[i].draw(this.eng.ctx);
     }

@@ -46,6 +46,7 @@ const show = (text)=> {
   getById("xwindow").appendChild(cont)*/
 
 }
+
 const goTo = (href)=> {
   setTimeout(()=> {
     window.location.hash = href;
