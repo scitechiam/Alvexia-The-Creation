@@ -28,7 +28,7 @@ const register = async (req, res) => {
             }
         };
 
-        const token = jwt.sign(payload, config.SECRET_TOKEN , { expiresIn: '1h' });
+        const token = jwt.sign(payload, config.SECRET_TOKEN , { expiresIn: '1d' });
 
         res.json({status: "success" , token });
     } catch (err) {
