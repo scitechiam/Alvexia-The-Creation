@@ -2,6 +2,7 @@ const fs = require("fs");
 var WORLD = {},
   PJS = {};
 const { SERVER } = require("../../../config.js");
+const IO = require("../../server.js").io;
 const mapsRoute = SERVER + "/database/maps/";
 const User = require(SERVER + "/database/models/User.js");
 const Character = require(SERVER + "/database/models/Character.js");
@@ -136,14 +137,14 @@ const movePj = async (socket , x , y) => {
   MOVES[socket.cmap][socket.char_id] = {x , y};
 };
 
-const IO = require("../../server.js").io;
 
-const engine = (ms) => {
+
+const engine = (ms , io) => {
   var loops = {};
   const addLoop = (mapKey) => {
     if (loops[mapKey]) return;
     const loop = () => {
-      IO.to(mapKey).emit("moves" , MOVES[mapKey]);
+      io.to(mapKey).emit("moves" , MOVES[mapKey]);
       MOVES[mapKey] = {};
     };
     loops[mapKey] = setInterval(loop, ms);
@@ -152,7 +153,7 @@ const engine = (ms) => {
   return { addLoop };
 };
 
-const Engine = engine(30);
+const Engine = engine(30 ,IO);
 
 module.exports = {
   createMap,

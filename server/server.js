@@ -9,6 +9,7 @@ const verifyToken = require("./routes/auth/verifyToken.js").verifySocketToken;
 const app = express();
 const server = http.createServer(app);
 const io = socketIO(server);
+module.exports = {io};
 app.use(express.json());
 const {loadMaps} = require("./engine/world/worldEngine.js");
 loadMaps();
@@ -19,7 +20,7 @@ app.use(router);
 
 app.use(express.static(CLIENT + "/public"));
 
-module.exports = io;
+
 const sock = require("./engine/socket.js");
 
 io.users = {};
