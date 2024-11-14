@@ -87,7 +87,6 @@ const joinMap = async (zone, coords, socket, io, pjStatus) => {
     level: char.level,
     coords: coords,
     isMoving: false,
-    movingTo: null,
     speed: char.speed || 1
   };
 
@@ -112,7 +111,7 @@ const leaveMap = async (socket, io) => {
   if (map.status == "error") return map;
 
 
-  const mapKey = `${zone.x}_${zone.y}`;
+  const mapKey = `${char.zone.x}_${char.zone.y}`;
 
   await socket.to(mapKey).emit("delPj", socket.char_id);
   const currentStatus = { ...PJS[mapKey][socket.char_id] };
@@ -127,58 +126,25 @@ const switchMap = async (zone, coords, socket, io) => {
   return newMap;
 };
 
+var MOVES = {};
 const movePj = async (socket , x , y) => {
   if(!socket.cmap) return; 
   if(!PJS[socket.cmap] || !PJS[socket.cmap][socket.char_id]) return;
   PJS[socket.cmap][socket.char_id].isMoving = true;
-  PJS[socket.cmap][socket.char_id].moveTo = { x , y};
-  socket.to(socket.cmap).emit("pjMove" , {[socket.char_id] : {isMoving: true , moveTo: {x , y}}});
+  PJS[socket.cmap][socket.char_id].coords = { x , y};
+  if(!MOVES[socket.cmap]) MOVES[socket.cmap] = {};
+  MOVES[socket.cmap][socket.char_id] = {x , y};
 };
 
-const updateMovement = (position, moveTo, speed, ms) => {
-  if (!moveTo) return position; // Si no hay destino, devuelve la posición actual.
-
-  const { x: currentX, y: currentY } = position;
-  const { x: targetX, y: targetY } = moveTo;
-
-  const distanceX = targetX - currentX; // Distancia en X
-  const distanceY = targetY - currentY; // Distancia en Y
-  const distance = Math.sqrt(distanceX ** 2 + distanceY ** 2); // Distancia total
-
-  const displacementPerTick = (speed * ms) / 1000; // Desplazamiento por tick
-
-  if (distance <= displacementPerTick) {
-    return { x: targetX, y: targetY, finished: true }; // Llegó al destino
-  }
-
-  const moveRatioX = distanceX / distance; // Proporción en X
-  const moveRatioY = distanceY / distance; // Proporción en Y
-
-  const newX = currentX + moveRatioX * displacementPerTick; // Nueva X
-  const newY = currentY + moveRatioY * displacementPerTick; // Nueva Y
-
-  return { x: newX, y: newY };
-};
+const IO = require("../../server.js").io;
 
 const engine = (ms) => {
   var loops = {};
   const addLoop = (mapKey) => {
     if (loops[mapKey]) return;
     const loop = () => {
-      Object.keys(PJS[mapKey]).forEach(char_id => {
-        const character = PJS[mapKey][char_id];
-        if (character.isMoving) {
-          const um = updateMovement(character.coords, character.moveTo, character.speed, ms);
-          character.coords = {
-            x: um.x,
-            y: um.y
-          };
-          if (um.finished) {
-            character.moveTo = null;
-            character.isMoving = false;
-          }
-        }
-      });
+      IO.to(mapKey).emit("moves" , MOVES[mapKey]);
+      MOVES[mapKey] = {};
     };
     loops[mapKey] = setInterval(loop, ms);
   };
