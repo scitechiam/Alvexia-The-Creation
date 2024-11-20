@@ -67,6 +67,7 @@ client.getNews = (callback)=> {
   })
 }
 function connectSocketIO(token) {
+  env.TOKEN = token;
     return io(BASE_URL, {
       query: {
         token

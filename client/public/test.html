@@ -3,130 +3,31 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="css/index.css">
-  <link rel="stylesheet" href="css/useful.css">
-  <script src="engine/main.js"></script>
-  <script src="engine/useful.js"></script>
-  <script src="engine/modules/Texture.js"></script>
-  <script src="engine/modules/Event.js"></script>
-  <script src="engine/modules/Floor.js"></script>
-  <script src="engine/modules/Square.js"></script>
-  <script src="engine/modules/Sprite.js"></script>
-  <script src="engine/modules/Circle.js"></script>
-  <script src="engine/modules/Collision.js"></script>
-  <script src="engine/modules/Text.js"></script>
-  <!-- <script src="plugins/eruda.js"></script>-->
+
   <title>Test</title>
   <style>
-    #contentx {
-      width: 100px;
-      height: 100px;
-      position: absolute;
-      bottom: 0;
-      background: red;
+    html, body {
+      width: 100%;
+      height: 100%;
+    }
+    * {
+      margin: 0;
+      padding: 0;
+    }
+
+    .content {
+      width: 100%;
+      height: 50%;
+      border: 0;
     }
   </style>
 </head>
 <body>
-  <div id="contentx">
-  </div>
-  <button id="btn_elfo">
-    elfo
-  </button>
-  <button id="btn_esq">Esqueleto</button>
   <script>
-    window.onload = ()=> {
-      const content = document.getElementById("contentx");
-      const eng = new Engine("contentx");
-      let player = new Sprite( {
-        id: "player",
-        x: 0, y: 0, //ng.W/2, y: eng.H/2,
-        src: "/assets/sheet_player01.png",
-        speed: 5,
-        animation: {
-          frameX: listFrame(10), frameY: listFrame(8), scale: 1.5,
-          run: {
-            left: x_y(9, 7), right: x_y(9, 5),
-            top: x_y(9, 6), bottom: x_y(9, 4)
-          },
-          stop: {
-            left: x_y(2, 1), right: x_y(2, 3),
-            top: x_y(0, 2), bottom: x_y(2, 0)
-          },
-        }
-      });
-      let moveTo = 0;
-      eng.event.on("click", ()=> {
-        moveTo = moveTo >= 3? 0: moveTo+1;
-        switch (moveTo) {
-          case 0:
-            player.direction = "bottom"
-            break;
-          case 1:
-            player.direction = "left"
-            break;
-          case 2:
-            player.direction = "top"
-            break;
-          case 3:
-            player.direction = "right"
-            break;
-        }
-      })
-      let render = ()=> {
-        try {
-          eng.begin(render, true);
-          // player.isStop = false;
-          player.draw(eng.ctx);
-          player.move({
-            x: 0,y:0,//eng.W/2, y: eng.H/2
-        }, true)
-      }catch(e) {
-        console.log(e)
-        render = ()=> {};
-      }
+    window.localStorage.setItem = function(key, value) {
+    return  window.localStorage.setItem("kk"+key, value);
     }
-    document.getElementById("btn_elfo").onclick = ()=> {
-      player = new Sprite( {
-        id: "player",
-        x: eng.W/2, y: eng.H/2,
-        src: "/assets/sheet_player01.png",
-        speed: 5,
-        animation: {
-          frameX: listFrame(10), frameY: listFrame(8), scale: 1.5,
-          run: {
-            left: x_y(9, 7), right: x_y(9, 5),
-            top: x_y(9, 6), bottom: x_y(9, 4)
-        },
-        stop: {
-          left: x_y(2, 1), right: x_y(2, 3),
-          top: x_y(0, 2), bottom: x_y(2, 0)
-        },
-      }
-      });
-  }
-  document.getElementById("btn_esq").onclick = ()=> {
-    player = new Sprite( {
-      x: eng.W/2, y: eng.H/2,
-      id: "skeleton",
-      src: "/assets/sheet_skeleton01.png",
-      speed: 3,
-      animation: {
-        frameX: listFrame(9), frameY: listFrame(4),
-        scale: 1.5,
-        run: {
-          left: x_y(8, 3), right: x_y(8, 1),
-          top: x_y(8, 0), bottom: x_y(8, 2)
-        },
-        stop: {
-          left: x_y(0, 3), right: x_y(0, 1),
-          top: x_y(0, 0), bottom: x_y(0, 2)
-        },
-      }
-    });
-  }
-  render();
-}
-</script>
+    localStorage.setItem("kk", "huhu")
+  </script>
 </body>
 </html>

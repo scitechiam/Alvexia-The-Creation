@@ -1,7 +1,7 @@
 const getById = (id)=> {
   try {
-  return document.getElementById(id);
-  } catch(e){
+    return document.getElementById(id);
+  } catch(e) {
     console.log(e)
     return {};
   }
@@ -28,11 +28,11 @@ class Toast {
     const cont = document.createElement("div");
     cont.className = "toast-success";
     cont.innerText = text;
-    getById("xwindow").appendChild(cont);
+    document.body.appendChild(cont);
     setTimeout(()=> {
       cont.style.transform = "translateX(100vw)"
-      setTimeout(()=>{
-      getById("xwindow").removeChild(cont);
+      setTimeout(()=> {
+        document.body.removeChild(cont);
       }, 100);
     }, 4000);
   }

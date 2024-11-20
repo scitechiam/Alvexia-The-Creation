@@ -5,10 +5,12 @@ window.onload = (()=> {
   const register_page = require("register_page");
   const create_character_page = require("create_character_page");
   const go_to_page = require("go_to_page");
-
-  let socket = save_local.exists("token") ? connectSocketIO(save_local.get("token")): null;
+  //save_local.set("token", "gggh")
+  //env.WINDOW = getById("content").innerHTML;
+  let socket = save_local.exists("token")? connectSocketIO(save_local.get("token")): null; // save_local.exists("token1") ? connectSocketIO(save_local.get("token1")): save_local.exists("token") ?connectSocketIO(save_local.get("token")): null;
   if (socket != null) {
     //startEvents(socket);
+    socketError();
     go_to_page("home");
   } else {
     go_to_page("login");
@@ -32,15 +34,17 @@ window.onload = (()=> {
         break;
     }
   }
-  socket.on("error", (e)=> {
-    if (e == "INVALID_TOKEN") {
-      go_to_page("login");
-    }
-    console.log("error",e);
-  });
-
   initLogic();
   login_page(socket);
   register_page(socket);
-
+  function socketError() {
+    socket.on("error", function(e) {
+      if (e == "INVALID_TOKEN") {
+        go_to_page("login");
+        if (save_local.get("token") == env.TOKEN) save_local.remove("token");
+        if (save_local.get("token1") == env.TOKEN) save_local.remove("token1");
+      }
+      console.log("error", e);
+  });
+}
 });

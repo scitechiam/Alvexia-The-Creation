@@ -36,7 +36,7 @@ module.exp.character = ((eng, val)=> {
 
   // console.log(val)
   let characters = {
-    elf: {
+    elf_1: {
       x: eng.C_X,
       y: eng.C_Y,
       src: "/assets/sheet_player01.png",
@@ -59,7 +59,7 @@ module.exp.character = ((eng, val)=> {
       },
     }
   },
-  orc: {
+  orc_1: {
     x: eng.C_X,
     y: eng.C_Y,
     src: "/assets/sheet_skeleton01.png",

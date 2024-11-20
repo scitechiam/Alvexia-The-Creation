@@ -52,7 +52,7 @@ class Floor {
       }
     }
     this.toward.draw(this.eng.ctx);
-    this.fallowing(isCreature, creature)
+    if (creature) this.fallowing(isCreature, creature)
     //  deb.draw(this.eng.ctx);
   }
 
@@ -68,7 +68,10 @@ class Floor {
       if (this.elements[i].x > -this.CELL && this.elements[i].y > -this.CELL && this.elements[i].x < this.eng.W + this.CELL && this.elements[i].y < this.eng.H + this.CELL) {
         if (this.elements[i].autoMove != null) {
           this.elements[i].autoMove();
+        } else {
+          //this.elements[i].move(this.elements[i].coordinates);
         }
+
         if (this.order.indexOf(this.elements[i]) == -1) {
           this.order.push(this.elements[i]);
         }
@@ -138,6 +141,13 @@ class Floor {
       }
     }
     return msg;
+  }
+  index(id) {
+    for (let i of this.elements) {
+      if (i.id == id) {
+        return this.elements.indexOf(i);
+      }
+    }
   }
 
 }

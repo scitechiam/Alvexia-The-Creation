@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="../css/index.css">
+  <link rel="stylesheet" href="../css/useful.css">
+
+  <script src="../plugins/socket.io.js"></script>
+  <script src="../plugins/eruda.js"></script>
+  <script src="../plugins/modules.js"></script>
+
+  <script src="../js/useful.js"></script>
+  <script src="../js/utils/character_selection.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/logic.js"></script>
+
+  <script src="../engine/main.js"></script>
+  <script src="../engine/useful.js"></script>
+  <script src="../engine/modules/Texture.js"></script>
+  <script src="../engine/modules/Event.js"></script>
+  <script src="../engine/modules/Floor.js"></script>
+  <script src="../engine/modules/Square.js"></script>
+  <script src="../engine/modules/Sprite.js"></script>
+  <script src="../engine/modules/Circle.js"></script>
+  <!--  <script src="engine/modules/Collision.js"></script>-->
+  <script src="../engine/modules/Text.js"></script>
+
+  <title>Alvexia</title>
+</head>
+<body>
+  <script>
+    if (window.eruda) {
+      eruda.init({
+        theme: 'dark'
+      });
+    }
+  </script>
+  <div id="content">
+  </div>
+
+</body>
+</html>

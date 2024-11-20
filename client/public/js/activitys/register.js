@@ -1,4 +1,5 @@
 module.exp.register_page = (socket)=> {
+  const save_local = require("save_local");
   const content_register = getById("content_register");
   const email_register = getById("email_register");
   const password_register = getById("password_register");
@@ -20,10 +21,16 @@ module.exp.register_page = (socket)=> {
       if (status == 403) show("Error de conexión");
       if (status == "error") show(`Error en el servidor:\n ${res.error}`);
       if (status != "success") return;
-      saveLocal("token", res.token);
-      goTo("home");
+      if (!save_local.exists("token")) {
+        save_local.set("token", res.token);
+      } else {
+        save_local.set("token1", res.token);
+      }
+      window.location.reload();
+     /* goTo("home");
       socket = connectSocketIO(res.token);
-      startEvents();
+      startEvents();*/
     })
   };
+  console.log(window.location)
 }

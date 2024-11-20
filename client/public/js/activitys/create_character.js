@@ -15,7 +15,7 @@ module.exp.create_character_page = ((socket)=> {
   const characterPreview = (val)=> {
     getById("content_character_run").innerText = "";
     let eng = new Engine("content_character_run");
-    preview(eng, new Sprite(character(eng, val)));
+    preview(eng, new Sprite(character(eng, val + "_1")));
   }
   getById("btn_select_elfo").onclick = ()=> {
     characterPreview(race = "elf");

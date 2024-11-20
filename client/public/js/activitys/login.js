@@ -1,4 +1,5 @@
 module.exp.login_page = (socket)=> {
+  const save_local = require("save_local");
   const content_login = getById("content_login");
   const email_login = getById("email_login");
   const password_login = getById("password_login");
@@ -22,10 +23,15 @@ module.exp.login_page = (socket)=> {
       if (status == 403) return show("Error de conexión");
       if (status == "error") return show(`Error en el servidor:\n ${res.error}`);
       if (status != "success") return show("Error desconocido");
-      saveLocal("token", res.token);
-      goTo("home");
-      socket = connectSocketIO(res.token);
-      startEvents(socket);
+      if (!save_local.exists("token")) {
+        save_local.set("token", res.token);
+      } else {
+        save_local.set("token1", res.token);
+      }
+      window.location.reload();
+      /*  goTo("home");
+     socket = connectSocketIO(res.token);
+      startEvents(socket);*/
     })
   };
 }
